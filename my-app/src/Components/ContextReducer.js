@@ -17,6 +17,28 @@ const reducer = (state, action) => {
           img: action.img,
         },
       ]
+    case 'REMOVE':
+      let newArr = [...state]
+      newArr.splice(action.index, 1)
+      return newArr
+    case 'DROP':
+      let empArray = []
+      return empArray
+
+    case 'UPDATE':
+      let arr = [...state]
+      arr = arr.map((food) => {
+        if (food.id === action.id) {
+          return {
+            ...food,
+            quantity: parseInt(action.quantity),
+            price: action.price * parseInt(action.quantity),
+          }
+        }
+        return food
+      })
+      return arr
+
     default:
       console.log('Error in Reducer')
   }

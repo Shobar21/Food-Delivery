@@ -28,6 +28,7 @@ function Login() {
     if (!data.success) {
       alert('Enter valid credentials')
     } else {
+      localStorage.setItem('userEmail', credentials.email)
       localStorage.setItem('authToken', data.authToken)
       console.log(localStorage.getItem('authToken'))
       alert('Succesfully Login')

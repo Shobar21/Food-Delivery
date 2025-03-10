@@ -1,11 +1,18 @@
 import Container from 'react-bootstrap/Container'
 import Nav from 'react-bootstrap/Nav'
 import Navbar from 'react-bootstrap/Navbar'
+import Badge from 'react-bootstrap/Badge'
 import { Link, useNavigate } from 'react-router-dom'
 import '../Style/navbar.css'
+import Cart from './Cart'
+import Modal from '../Model'
+import { useState } from 'react'
+import { useStateCart } from './ContextReducer'
 
 function NavComp() {
+  let data = useStateCart()
   const navigate = useNavigate()
+  const [cartView, setCartView] = useState(false)
 
   const handleLogout = () => {
     localStorage.removeItem('authToken')
@@ -24,7 +31,7 @@ function NavComp() {
               Home
             </Nav.Link>
             {localStorage.getItem('authToken') ? (
-              <Nav.Link className='fs-5 mt-3' as={Link} to='/'>
+              <Nav.Link className='fs-5 mt-3' as={Link} to='/myOrder'>
                 My Orders
               </Nav.Link>
             ) : (
@@ -46,7 +53,24 @@ function NavComp() {
             </div>
           ) : (
             <div className='d-flex' style={{ background: 'none' }}>
-              <div className=' purple btn bg-white mx-2'>My Cart</div>
+              <div
+                className=' purple btn bg-white mx-2'
+                onClick={() => {
+                  setCartView(true)
+                }}
+              >
+                My Cart{' '}
+                <Badge pill bg='danger' className='fs-9'>
+                  {data.length}
+                </Badge>
+              </div>
+              {cartView ? (
+                <Modal onClose={() => setCartView(false)}>
+                  <Cart />
+                </Modal>
+              ) : (
+                ''
+              )}
               <div
                 className=' text-danger btn bg-white mx-2'
                 onClick={handleLogout}

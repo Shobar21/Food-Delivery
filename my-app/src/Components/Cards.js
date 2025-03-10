@@ -2,6 +2,7 @@ import Card from 'react-bootstrap/Card'
 import food from '../Imges/st.avif'
 import { useEffect, useRef, useState } from 'react'
 import { useDispatchCart, useStateCart } from './ContextReducer'
+import { type } from '@testing-library/user-event/dist/type'
 
 function Cards({ options, foodItem }) {
   let priceRef = useRef()
@@ -14,6 +15,37 @@ function Cards({ options, foodItem }) {
   const [quty, setQuty] = useState(1)
 
   const addtoCart = async () => {
+    let food = []
+    for (const item of data) {
+      if (item.id === foodItem._id) {
+        food = item
+        break
+      }
+    }
+    if (food.length !== 0) {
+      if (food.size === size) {
+        await dispatch({
+          type: 'UPDATE',
+          id: foodItem._id,
+          price: finalPrice,
+          quantity: quty,
+        })
+        return
+      } else if (food.size !== size) {
+        await dispatch({
+          type: 'ADD',
+          id: foodItem._id,
+          name: foodItem.name,
+          price: finalPrice,
+          quantity: quty,
+          size: size,
+          img: foodItem.img,
+        })
+        return
+      }
+      return
+    }
+
     await dispatch({
       type: 'ADD',
       id: foodItem._id,
@@ -23,7 +55,7 @@ function Cards({ options, foodItem }) {
       size: size,
       img: foodItem.img,
     })
-    console.log(data)
+    // console.log(data)
   }
   let finalPrice = quty * parseInt(option[size])
   useEffect(() => {

@@ -5,6 +5,7 @@ import Login from './Pages/Login'
 import Signup from './Pages/Signup'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { CartProvider } from './Components/ContextReducer'
+import Myorder from './Components/Myorder'
 function App() {
   return (
     <>
@@ -14,6 +15,7 @@ function App() {
             <Route path='/' element={<HomePage />} />
             <Route path='/login' element={<Login />} />
             <Route path='/signup' element={<Signup />} />
+            <Route path='/myOrder' element={<Myorder />} />
           </Routes>
         </BrowserRouter>
       </CartProvider>

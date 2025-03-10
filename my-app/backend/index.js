@@ -4,6 +4,7 @@ const app = express()
 import mongoDB from './DbConnect/Db.js'
 import createUser from './Routes/createUser.js'
 import DisplayData from './Routes/DisplayData.js'
+import OrderData from './Routes/OrderData.js'
 
 mongoDB()
 
@@ -24,6 +25,7 @@ app.get('/', (req, resp) => {
 
 app.use('/api', createUser)
 app.use('/api', DisplayData)
+app.use('/api', OrderData)
 
 const port = 5000
 app.listen(port, () => {
