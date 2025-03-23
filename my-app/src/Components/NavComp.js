@@ -43,27 +43,26 @@ function NavComp() {
               <Link className='purple btn bg-white mx-1' as={Link} to='/login'>
                 Login
               </Link>
-              <Link
-                className=' purple btn bg-white mx-1'
-                as={Link}
-                to='/signup'
-              >
+              <Link className=' purple btn bg-white mx-1' as={Link} to='/signup'>
                 Signup
               </Link>
             </div>
           ) : (
             <div className='d-flex' style={{ background: 'none' }}>
               <div
-                className=' purple btn bg-white mx-2'
+                className='purple btn bg-white mx-2'
                 onClick={() => {
                   setCartView(true)
                 }}
               >
                 My Cart{' '}
-                <Badge pill bg='danger' className='fs-9'>
-                  {data.length}
-                </Badge>
+                {data.length > 0 && (
+                  <Badge pill bg='danger' className='fs-9'>
+                    {data.length}
+                  </Badge>
+                )}
               </div>
+
               {cartView ? (
                 <Modal onClose={() => setCartView(false)}>
                   <Cart />
@@ -71,10 +70,7 @@ function NavComp() {
               ) : (
                 ''
               )}
-              <div
-                className=' text-danger btn bg-white mx-2'
-                onClick={handleLogout}
-              >
+              <div className=' text-danger btn bg-white mx-2' onClick={handleLogout}>
                 Logout
               </div>
             </div>
